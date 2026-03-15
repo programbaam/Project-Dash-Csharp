@@ -1,0 +1,27 @@
+## [ 빌드 결과물 (Build Outputs) ]
+# 컴파일된 바이너리 파일과 중간 파일들을 제외합니다.
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+
+## [ IDE 설정 파일 (User-specific files) ]
+# Visual Studio가 생성하는 개인 설정 및 캐시 파일입니다.
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+## [ 패키지 매니저 (NuGet) ]
+# 라이브러리는 프로젝트 파일에 명시되므로 실제 파일은 올리지 않습니다.
+packages/
+*.nuget.props
+*.nuget.targets
+
+## [ 기타 (OS 및 로그) ]
+# 운영체제 생성 파일 및 로그 파일을 제외합니다.
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.log
