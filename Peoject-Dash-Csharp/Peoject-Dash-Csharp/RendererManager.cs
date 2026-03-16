@@ -4,9 +4,9 @@ class RendererManager
 {
     private HashSet<Renderer> mRenderers;
 
-    public RendererManager()
+    public RendererManager(HashSet<Renderer> renderers)
     { 
-        mRenderers = new HashSet<Renderer>();
+        mRenderers = renderers;
     }
 
     public void Render()
