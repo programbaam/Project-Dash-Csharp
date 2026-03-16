@@ -3,16 +3,13 @@
 class GameManager
 {
     private readonly SyncSet mRendererSyncSet;
-    private readonly HashSet<Renderer> mNewRenderers;
-    private readonly HashSet<Renderer> mDeleteRenderers;
-
     private readonly RendererManager mRendererManager;
     private readonly InputManager mInputManager;
 
     public GameManager()
     {
-        mNewRenderers = mRendererSyncSet.newRenderers;
-        mDeleteRenderers = mRendererSyncSet.deleteRenderers;
+        mRendererSyncSet.newRenderers = new HashSet<Renderer>();
+        mRendererSyncSet.deleteRenderers = new HashSet<Renderer>();
 
         mRendererManager = new RendererManager();
         mInputManager = new InputManager();
@@ -28,10 +25,13 @@ class GameManager
 
     public void SyncRenderers()
     {
-        mRendererManager.UnionWithNewRenderers(mNewRenderers);
-        mRendererManager.ExceptWithDeleteRenderers(mDeleteRenderers);
+        HashSet<Renderer> newRenderers = mRendererSyncSet.newRenderers;
+        HashSet<Renderer> deleteRenderers = mRendererSyncSet.deleteRenderers;
+        
+        mRendererManager.UnionWithNewRenderers(newRenderers);
+        mRendererManager.ExceptWithDeleteRenderers(deleteRenderers);
 
-        mNewRenderers.Clear();
-        mDeleteRenderers.Clear();
+        newRenderers.Clear();
+        deleteRenderers.Clear();
     }
 }
