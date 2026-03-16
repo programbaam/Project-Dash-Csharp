@@ -1,31 +1,37 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 class GameManager
 {
-    private readonly RendererSyncSet mRendererSyncSet;
+    private readonly SyncSet mRendererSyncSet;
+    private readonly HashSet<Renderer> mNewRenderers;
+    private readonly HashSet<Renderer> mDeleteRenderers;
+
     private readonly RendererManager mRendererManager;
     private readonly InputManager mInputManager;
 
     public GameManager()
     {
-        mRendererSyncSet = new RendererSyncSet();
+        mNewRenderers = mRendererSyncSet.newRenderers;
+        mDeleteRenderers = mRendererSyncSet.deleteRenderers;
+
         mRendererManager = new RendererManager();
         mInputManager = new InputManager();
     }
 
     public void GameLoop()
     {
-        mRendererManager.Render();
         mInputManager.Input();
+
+        mRendererManager.Render();
+        SyncRenderers();
     }
 
     public void SyncRenderers()
     {
-        HashSet<Renderer> newRenderers = mRendererSyncSet.newRenderers;
-        HashSet<Renderer> deleteRenderers = mRendererSyncSet.deleteRenderers;
-        
-        mRendererManager.UnionWithNewRenderers(newRenderers);
-        mRendererManager.ExceptWithDeleteRenderers(deleteRenderers);
+        mRendererManager.UnionWithNewRenderers(mNewRenderers);
+        mRendererManager.ExceptWithDeleteRenderers(mDeleteRenderers);
+
+        mNewRenderers.Clear();
+        mDeleteRenderers.Clear();
     }
 }

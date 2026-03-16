@@ -1,4 +1,4 @@
 ﻿abstract class GameObject
 {
-    private readonly RendererSyncSet mRendererSyncSet;
+    private readonly SyncSet mSyncSet;
 }

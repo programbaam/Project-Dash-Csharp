@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 class RendererManager
 {
@@ -16,6 +17,7 @@ class RendererManager
 
     public void Render()
     {
+        Console.Clear();
         foreach (Renderer renderer in mRenderers)
         {
             renderer.Draw();

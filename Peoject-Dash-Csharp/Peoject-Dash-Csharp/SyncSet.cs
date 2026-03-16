@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-struct RendererSyncSet
+struct SyncSet
 {
     public HashSet<Renderer> newRenderers;
     public HashSet<Renderer> deleteRenderers;
