@@ -19,6 +19,16 @@ class InputManager
         return false;
     }
 
+    public void UnionWithNewInputs(HashSet<IInputable> newInputs)
+    {
+        mInputs.UnionWith(newInputs);
+    }
+
+    public void ExceptWithDeleteInputs(HashSet<IInputable> deleteInputs)
+    {
+        mInputs.ExceptWith(deleteInputs);
+    }
+
     public void Input()
     {
         foreach (IInputable input in mInputs)
