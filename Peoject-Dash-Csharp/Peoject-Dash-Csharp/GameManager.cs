@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 class GameManager
 {
     private readonly RendererSyncSet mRendererSyncSet;
-    private RendererManager mRendererManager;
+    private readonly RendererManager mRendererManager;
+    private readonly InputManager mInputManager;
 
-    public GameManager(RendererManager rendererManager)
+    public GameManager()
     {
-        mRendererManager = rendererManager;
+        mRendererSyncSet = new RendererSyncSet();
+        mRendererManager = new RendererManager();
+        mInputManager = new InputManager();
     }
 
     public void GameLoop()
     {
         mRendererManager.Render();
+        mInputManager.Input();
     }
 
     public void SyncRenderers()
