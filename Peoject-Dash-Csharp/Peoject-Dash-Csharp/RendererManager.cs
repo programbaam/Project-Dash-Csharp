@@ -2,11 +2,16 @@
 
 class RendererManager
 {
-    private HashSet<Renderer> mRenderers;
+    private readonly HashSet<Renderer> mRenderers = new();
 
-    public RendererManager(HashSet<Renderer> renderers)
-    { 
-        mRenderers = renderers;
+    public void UnionWithNewRenderers(HashSet<Renderer> newRenderers)
+    {
+        mRenderers.UnionWith(newRenderers);
+    }
+
+    public void ExceptWithDeleteRenderers(HashSet<Renderer> deleteRenderers)
+    {
+        mRenderers.ExceptWith(deleteRenderers);
     }
 
     public void Render()
