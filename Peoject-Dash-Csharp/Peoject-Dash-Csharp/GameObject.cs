@@ -12,7 +12,7 @@ abstract class GameObject
 
     virtual public void Init()
     {
-        foreach (var component in mNewComponents)
+        foreach (Component component in mNewComponents)
         {
             
             if (component is Renderer renderer)
@@ -31,7 +31,8 @@ abstract class GameObject
     { }
     virtual public void Delete() 
     { }
-    abstract public void Destroy();
+    virtual public void Destroy()
+    { }
     
         
 }
