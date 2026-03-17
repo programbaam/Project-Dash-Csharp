@@ -14,6 +14,7 @@ abstract class GameObject
     {
         foreach (Component component in mNewComponents)
         {
+            mComponents.Add(component);
             
             if (component is Renderer renderer)
             {
