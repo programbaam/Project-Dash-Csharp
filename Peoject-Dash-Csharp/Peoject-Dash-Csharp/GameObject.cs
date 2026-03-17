@@ -6,11 +6,11 @@ abstract class GameObject
 {
     private readonly SyncSet mSyncSet;
 
-    private readonly HashSet<Component> mComponents= new();
-    private readonly HashSet<Component> mNewComponents= new();
-    private readonly HashSet<Component> mDeleteComponents= new();
+    private readonly HashSet<Component> mComponents = new();
+    private readonly HashSet<Component> mNewComponents = new();
+    private readonly HashSet<Component> mDeleteComponents = new();
 
-    protected void InitComponent(Component component) 
+    protected void InitComponent(Component component)
     {
         mComponents.Add(component);
 
@@ -52,7 +52,7 @@ abstract class GameObject
     }
     virtual public void Update()
     { }
-    virtual public void Release() 
+    virtual public void Release()
     {
         foreach (Component component in mComponents)
         {
@@ -61,7 +61,13 @@ abstract class GameObject
         mComponents.Clear();
     }
     virtual public void Destroy()
-    { }
+    {
+        foreach (Component component in mDeleteComponents)
+        {
+            component.Destroy();
+        }
+        mDeleteComponents.Clear();
+    }
+}
     
         
-}
