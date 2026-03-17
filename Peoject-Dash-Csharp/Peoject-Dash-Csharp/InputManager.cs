@@ -31,9 +31,9 @@ class InputManager
 
     public void Input()
     {
-        foreach (IInputable input in mInputs)
+        foreach (IInputable inputable in mInputs)
         { 
-            input.Input();
+            inputable.Input();
         }
     }
 }
