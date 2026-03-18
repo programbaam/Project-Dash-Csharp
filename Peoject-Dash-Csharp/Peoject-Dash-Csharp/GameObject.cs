@@ -4,8 +4,6 @@ using System.Diagnostics;
 
 abstract class GameObject
 {
-    protected SyncSet mSyncSet;
-
     private readonly HashSet<Component> mComponents = new();
     private readonly HashSet<Component> mNewComponents = new();
     private readonly HashSet<Component> mDeleteComponents = new();
@@ -21,12 +19,12 @@ abstract class GameObject
         if (component is Renderer renderer)
         {
             Debug.Assert(renderer != null);
-            mSyncSet.newRenderers.Add(renderer);
+            GameManager.mSyncSet.newRenderers.Add(renderer);
         }
         if (component is IInputable inputable)
         {
             Debug.Assert(inputable != null);
-            mSyncSet.newInputs.Add(inputable);
+            GameManager.mSyncSet.newInputs.Add(inputable);
         }
     }
     protected void ReleaseComponent(Component component)
@@ -36,12 +34,12 @@ abstract class GameObject
         if (component is Renderer renderer)
         {
             Debug.Assert(renderer != null);
-            mSyncSet.deleteRenderers.Add(renderer);
+            GameManager.mSyncSet.deleteRenderers.Add(renderer);
         }
         if (component is IInputable inputable)
         {
             Debug.Assert(inputable != null);
-            mSyncSet.deleteInputs.Add(inputable);
+            GameManager.mSyncSet.deleteInputs.Add(inputable);
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 // TODO: SyncSet - statc 클래스로 만들기
-// TODO: 생성자, 멤버 변수로 설정한 SyncSet 코드들 수정하기
+// TODO: 생성자, 멤버 변수로 설정한 SyncSet
 struct SyncSet
 {
     //Input

@@ -2,7 +2,7 @@
 
 class GameManager
 {
-    private readonly SyncSet mSyncSet;
+    static public SyncSet mSyncSet;
     private readonly RendererManager mRendererManager;
     private readonly InputManager mInputManager;
     private readonly SceneManager mSceneManager;
@@ -10,14 +10,14 @@ class GameManager
     public GameManager()
     {
         //SyncSet 멤버변수 초기화
-        mSyncSet.newInputs = new HashSet<IInputable>();
-        mSyncSet.deleteInputs = new HashSet<IInputable>();
-        mSyncSet.newRenderers = new HashSet<Renderer>();
-        mSyncSet.deleteRenderers = new HashSet<Renderer>();
+        GameManager.mSyncSet.newInputs = new HashSet<IInputable>();
+        GameManager.mSyncSet.deleteInputs = new HashSet<IInputable>();
+        GameManager.mSyncSet.newRenderers = new HashSet<Renderer>();
+        GameManager.mSyncSet.deleteRenderers = new HashSet<Renderer>();
 
         mInputManager = new InputManager();
         mRendererManager = new RendererManager();
-        mSceneManager = new SceneManager(mSyncSet);
+        mSceneManager = new SceneManager();
     }
 
     public void GameLoop()

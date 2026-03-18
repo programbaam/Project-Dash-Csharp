@@ -4,10 +4,8 @@
     protected TextRenderer mTextRenderer;
 
 
-    public Widget(SyncSet syncSet, ConsolePoint consolePoint, string text)
+    public Widget(ConsolePoint consolePoint, string text)
     {
-        mSyncSet = syncSet;
-
         mScreenPos = consolePoint;
 
         mTextRenderer = new TextRenderer(consolePoint, text);

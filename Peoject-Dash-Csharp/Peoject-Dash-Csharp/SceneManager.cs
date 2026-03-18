@@ -1,7 +1,5 @@
 ﻿class SceneManager
 {
-    private SyncSet mSyncSet;
-
     private Scene ActiveScene;
 
     public void Init()
@@ -19,9 +17,8 @@
         ActiveScene.Destroy();
     }
 
-    public SceneManager(SyncSet syncSet)
-    {
-        mSyncSet = syncSet;
-        ActiveScene = new MenuScene(mSyncSet);
+    public SceneManager()
+    { 
+        ActiveScene = new MenuScene();
     }
 }

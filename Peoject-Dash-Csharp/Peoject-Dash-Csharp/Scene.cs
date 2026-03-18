@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 abstract class Scene
 {
-    protected SyncSet mSyncSet;
 
     private readonly HashSet<GameObject> mGameObjects = new();
     private readonly HashSet<GameObject> mNewGameObjects = new();
@@ -23,7 +22,7 @@ abstract class Scene
         if (gameObject is IInputable inputable)
         {
             Debug.Assert(inputable != null);
-            mSyncSet.newInputs.Add(inputable);
+            GameManager.mSyncSet.newInputs.Add(inputable);
         }
     }
 
@@ -53,7 +52,7 @@ abstract class Scene
         if (gameObject is IInputable inputable)
         {
             Debug.Assert(inputable != null);
-            mSyncSet.deleteInputs.Add(inputable);
+            GameManager.mSyncSet.deleteInputs.Add(inputable);
         }
     }
     virtual public void Release()
