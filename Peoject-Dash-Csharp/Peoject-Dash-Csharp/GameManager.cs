@@ -2,37 +2,45 @@
 
 class GameManager
 {
-    private readonly SyncSet mRendererSyncSet;
+    private readonly SyncSet mSyncSet;
     private readonly RendererManager mRendererManager;
     private readonly InputManager mInputManager;
+    private readonly SceneManager mSceneManager;
 
     public GameManager()
     {
         //SyncSet 멤버변수 초기화
-        mRendererSyncSet.newInputs = new HashSet<IInputable>();
-        mRendererSyncSet.deleteInputs = new HashSet<IInputable>();
-        mRendererSyncSet.newRenderers = new HashSet<Renderer>();
-        mRendererSyncSet.deleteRenderers = new HashSet<Renderer>();
+        mSyncSet.newInputs = new HashSet<IInputable>();
+        mSyncSet.deleteInputs = new HashSet<IInputable>();
+        mSyncSet.newRenderers = new HashSet<Renderer>();
+        mSyncSet.deleteRenderers = new HashSet<Renderer>();
 
         mInputManager = new InputManager();
         mRendererManager = new RendererManager();
+        mSceneManager = new SceneManager(mSyncSet);
     }
 
     public void GameLoop()
     {
-        mInputManager.Input();
+        while (true)
 
-        mRendererManager.Render();
+        {
+            mSceneManager.Init();
 
-        //Sync
-        SyncInputs();
-        SyncRenderers();
+            mInputManager.Input();
+
+            mRendererManager.Render();
+
+            //Sync
+            SyncInputs();
+            SyncRenderers();
+        }
     }
 
     public void SyncInputs()
     {
-        HashSet<IInputable> newInputs = mRendererSyncSet.newInputs;
-        HashSet<IInputable> deleteInputs = mRendererSyncSet.deleteInputs;
+        HashSet<IInputable> newInputs = mSyncSet.newInputs;
+        HashSet<IInputable> deleteInputs = mSyncSet.deleteInputs;
 
         mInputManager.UnionWithNewInputs(newInputs);
         mInputManager.ExceptWithDeleteInputs(deleteInputs);
@@ -43,8 +51,8 @@ class GameManager
 
     public void SyncRenderers()
     {
-        HashSet<Renderer> newRenderers = mRendererSyncSet.newRenderers;
-        HashSet<Renderer> deleteRenderers = mRendererSyncSet.deleteRenderers;
+        HashSet<Renderer> newRenderers = mSyncSet.newRenderers;
+        HashSet<Renderer> deleteRenderers = mSyncSet.deleteRenderers;
         
         mRendererManager.UnionWithNewRenderers(newRenderers);
         mRendererManager.ExceptWithDeleteRenderers(deleteRenderers);

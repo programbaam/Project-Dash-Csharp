@@ -5,10 +5,9 @@ class TextRenderer : Renderer
     private ConsolePoint mScrenPos;
     private string mText;
 
-    public TextRenderer(int screnPosX, int screnPosY, string text)
+    public TextRenderer(ConsolePoint screenPos, string text)
     {
-        mScrenPos.x = screnPosX;
-        mScrenPos.y = screnPosY;
+        mScrenPos = screenPos;
         mText = text;
     }
 

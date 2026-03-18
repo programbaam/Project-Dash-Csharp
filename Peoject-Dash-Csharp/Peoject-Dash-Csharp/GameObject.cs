@@ -4,12 +4,16 @@ using System.Diagnostics;
 
 abstract class GameObject
 {
-    private readonly SyncSet mSyncSet;
+    protected SyncSet mSyncSet;
 
     private readonly HashSet<Component> mComponents = new();
     private readonly HashSet<Component> mNewComponents = new();
     private readonly HashSet<Component> mDeleteComponents = new();
 
+    protected void NewComponemt(Component component)
+    {
+        mNewComponents.Add(component);
+    }
     protected void InitComponent(Component component)
     {
         mComponents.Add(component);
@@ -50,8 +54,8 @@ abstract class GameObject
         }
         mNewComponents.Clear();
     }
-    virtual public void Update()
-    { }
+    abstract public void Update();
+
     virtual public void Release()
     {
         foreach (Component component in mComponents)

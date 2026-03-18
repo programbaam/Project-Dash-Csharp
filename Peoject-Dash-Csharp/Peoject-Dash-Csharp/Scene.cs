@@ -3,11 +3,18 @@ using System.Diagnostics;
 
 abstract class Scene
 {
-    private readonly SyncSet mSyncSet;
+    protected SyncSet mSyncSet;
 
     private readonly HashSet<GameObject> mGameObjects = new();
     private readonly HashSet<GameObject> mNewGameObjects = new();
     private readonly HashSet<GameObject> mDeleteGameObjects = new();
+
+    protected void NewGameObject(GameObject gameObject)
+    {
+        mNewGameObjects.Add(gameObject);
+    }
+
+
 
     protected void InitGameObject(GameObject gameObject)
     {
@@ -19,12 +26,18 @@ abstract class Scene
             mSyncSet.newInputs.Add(inputable);
         }
     }
+
     
     virtual public void Init()
     {
         foreach (GameObject gameObject in mNewGameObjects)
         {          
            InitGameObject(gameObject);
+        }
+
+        foreach(GameObject gameObject in mGameObjects)
+        {
+            gameObject.Init();
         }
     }   
     virtual public void Update()
