@@ -25,15 +25,24 @@ class GameManager
         while (true)
 
         {
+            // Init
             mSceneManager.Init();
 
+            // Input
             mInputManager.Input();
 
-            mRendererManager.Render();
+            // Update
 
             //Sync
             SyncInputs();
             SyncRenderers();
+
+            //Render
+            mRendererManager.Render();
+
+
+            //Destroy
+
         }
     }
 
