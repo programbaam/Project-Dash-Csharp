@@ -69,6 +69,7 @@ abstract class Scene
         {
             gameObject.Destroy();
         }
+        mDeleteGameObjects.Clear();
     }
 
 }
