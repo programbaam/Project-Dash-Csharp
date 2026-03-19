@@ -29,6 +29,10 @@ class Widget : GameObject
     }
 
     // TODO: Destroy 함수 구현 해야함. base.Destroy();
+    public override void Destroy()
+    {
+        base.Destroy();
+    }
 
 }
 
