@@ -1,5 +1,8 @@
 ﻿enum EMenu
-{
-    None = 0,
+{   
+    None = -1,
+    NewGame,
+    ScoreMenu,
+    Quit,
     Max
 }
