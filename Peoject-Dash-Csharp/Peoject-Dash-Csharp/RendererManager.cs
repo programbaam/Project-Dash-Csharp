@@ -17,10 +17,19 @@ class RendererManager
 
     public void Render()
     {
-        Console.Clear();
+        ClearConsole();
         foreach (Renderer renderer in mRenderers)
         {
             renderer.Draw();
+        }
+    }
+
+    public void ClearConsole()
+    { 
+        string emptySpaceWidth = " ".PadRight(GameManager.ConsoleWidth);
+        for (int i = 0; i < GameManager.ConsoleHeight; ++i)
+        {
+            Console.WriteLine(emptySpaceWidth);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 class GameManager
 {
@@ -6,6 +8,13 @@ class GameManager
     private readonly RendererManager mRendererManager;
     private readonly InputManager mInputManager;
     private readonly SceneManager mSceneManager;
+
+    private Stopwatch mStopwatch;
+    private long mLastTick;
+
+    //Console Size
+    public static int ConsoleWidth { get =>100; } //Console.WindowWidth : 120
+    public static int ConsoleHeight { get => 30; } //Console.WindowHeight : 30
 
     public GameManager()
     {
@@ -18,13 +27,26 @@ class GameManager
         mInputManager = new InputManager();
         mRendererManager = new RendererManager();
         mSceneManager = new SceneManager();
+
+        mStopwatch = new Stopwatch();
+        mLastTick = 0;
     }
 
     public void GameLoop()
     {
-        while (true)
+        //Game Setting
+        Console.SetWindowSize(ConsoleWidth, ConsoleHeight);
+        Console.CursorVisible = false;
+        
+        mStopwatch.Start();
 
+        while (true)
         {
+            //Ticks를 초단위로 변환
+            long currentTick = mStopwatch.ElapsedTicks;
+            //Stopwatch.Frequency : 1초를 틱단위(long)로 표현한 수
+            Time.DeltaTime = (float)((currentTick - mLastTick) / Stopwatch.Frequency);
+
             // Init
             mSceneManager.Init();
 
@@ -42,7 +64,6 @@ class GameManager
 
 
             //Destroy
-
         }
     }
 
