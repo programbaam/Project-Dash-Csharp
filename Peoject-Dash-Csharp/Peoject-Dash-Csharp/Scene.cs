@@ -10,6 +10,7 @@ abstract class Scene
 
     protected void NewGameObject(GameObject gameObject)
     {
+        Debug.Assert(gameObject != null);
         mNewGameObjects.Add(gameObject);
     }
 
@@ -17,11 +18,11 @@ abstract class Scene
 
     protected void InitGameObject(GameObject gameObject)
     {
+        Debug.Assert(gameObject != null);
         mGameObjects.Add(gameObject);
 
         if (gameObject is IInputable inputable)
-        {
-            Debug.Assert(inputable != null);
+        {            
             GameManager.mSyncSet.newInputs.Add(inputable);
         }
     }
@@ -30,12 +31,15 @@ abstract class Scene
     virtual public void Init()
     {
         foreach (GameObject gameObject in mNewGameObjects)
-        {          
+        {
+           Debug.Assert(gameObject != null);
            InitGameObject(gameObject);
         }
+        mNewGameObjects.Clear();
 
-        foreach(GameObject gameObject in mGameObjects)
+        foreach (GameObject gameObject in mGameObjects)
         {
+            Debug.Assert(gameObject != null);
             gameObject.Init();
         }
     }   
@@ -43,15 +47,18 @@ abstract class Scene
     {
         foreach (GameObject gameObject in mGameObjects)
         {
+           Debug.Assert(gameObject != null);
            gameObject.Update();
         }
     }
     protected void ReleaseGameObject(GameObject gameObject) 
     {
+        Debug.Assert(gameObject != null);
         mDeleteGameObjects.Add(gameObject);
+        gameObject.Release();
+
         if (gameObject is IInputable inputable)
         {
-            Debug.Assert(inputable != null);
             GameManager.mSyncSet.deleteInputs.Add(inputable);
         }
     }
@@ -59,7 +66,8 @@ abstract class Scene
     {
         
         foreach (GameObject gameObject in mGameObjects)
-        {
+        {   
+            Debug.Assert(gameObject != null);
             ReleaseGameObject(gameObject);
         }
     }
@@ -67,6 +75,7 @@ abstract class Scene
     {
         foreach (GameObject gameObject in mDeleteGameObjects)
         {
+            Debug.Assert(gameObject != null);
             gameObject.Destroy();
         }
         mDeleteGameObjects.Clear();
