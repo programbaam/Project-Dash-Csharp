@@ -17,13 +17,18 @@ class RendererManager
 
     public void Render()
     {
-        ClearConsole();
+        Console.Clear();
         foreach (Renderer renderer in mRenderers)
         {
+            if (renderer.IsDrawing == false)
+            {
+                continue;
+            }
             renderer.Draw();
         }
     }
 
+    // TODO : 추후 사용안할 시 삭제
     public void ClearConsole()
     { 
         string emptySpaceWidth = " ".PadRight(GameManager.ConsoleWidth);
