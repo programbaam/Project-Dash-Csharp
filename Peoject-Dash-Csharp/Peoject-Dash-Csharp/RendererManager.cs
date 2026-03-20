@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class RendererManager
 {
-    private readonly HashSet<Renderer> mRenderers = new();
+    private readonly HashSet<Renderer> mRenderers = new();    
 
     public void UnionWithNewRenderers(HashSet<Renderer> newRenderers)
     {
@@ -20,11 +20,9 @@ class RendererManager
         Console.Clear();
         foreach (Renderer renderer in mRenderers)
         {
-            if (renderer.IsDrawing == false)
-            {
-                continue;
-            }
+
             renderer.Draw();
+
         }
     }
 

@@ -9,18 +9,18 @@ class Widget : GameObject
     protected TextRenderer mContentsRenderer;
     protected TextRenderer mCursorRenderer;
 
-    public bool IsCursorVisible {  get; set; }
+    public bool IsVisible {  get; set; }
 
-    public Widget(ConsolePoint consolePoint, string text, bool isCursorVisible = false)
+    public Widget(ConsolePoint consolePoint, string text, bool isVisible)
     {
-        IsCursorVisible = isCursorVisible;
+        IsVisible = isVisible;
 
-        mCursorRenderer = new TextRenderer(consolePoint, "▶");
+        mCursorRenderer = new TextRenderer(consolePoint, "▶", IsVisible);
         NewComponemt(mCursorRenderer);
 
         consolePoint.x += LOCAL_CONTENTS_POS_X;
-
-        mContentsRenderer = new TextRenderer(consolePoint, text);
+       
+        mContentsRenderer = new TextRenderer(consolePoint, text, IsVisible=true);
         NewComponemt(mContentsRenderer);
     }
     
