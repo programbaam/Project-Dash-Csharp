@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 class GameManager
 {
@@ -35,6 +36,7 @@ class GameManager
     public void GameLoop()
     {
         //Game Setting
+        Console.OutputEncoding = Encoding.UTF8;
         Console.SetWindowSize(ConsoleWidth, ConsoleHeight);
         Console.CursorVisible = false;
         
