@@ -3,7 +3,7 @@ using System;
 
 class GameScene : Scene
 {
-    private readonly Actor mPlayer;
+    private readonly Player mPlayer;
     private readonly Actor mObstacle;
     private readonly Actor mGround;
     public override void Update()
@@ -24,7 +24,7 @@ class GameScene : Scene
         worldLocation.x = 5.0f;
         worldLocation.y = 12.0f;
 
-        mPlayer = new Actor(worldLocation: worldLocation,text2D: playerTexts, color: ConsoleColor.Magenta);
+        mPlayer = new Player(worldLocation: worldLocation,text2D: playerTexts, jumpPower: 10, color: ConsoleColor.Magenta);
         NewGameObject(mPlayer);
 
         string[] obstacleTexts =
