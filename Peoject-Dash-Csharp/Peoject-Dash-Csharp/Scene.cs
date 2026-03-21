@@ -13,8 +13,7 @@ abstract class Scene
         Debug.Assert(gameObject != null);
         mNewGameObjects.Add(gameObject);
     }
-
-
+    
 
     protected void InitGameObject(GameObject gameObject)
     {

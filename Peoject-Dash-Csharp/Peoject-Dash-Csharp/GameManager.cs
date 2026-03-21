@@ -54,7 +54,8 @@ class GameManager
             mInputManager.Input();
 
             // Update
-
+            mSceneManager.Update();
+            
             //Sync
             SyncInputs();
             SyncRenderers();

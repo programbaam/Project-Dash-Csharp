@@ -6,19 +6,17 @@ class MenuScene : Scene , IInputable
     private const int FIRST_MENU_UI_POS_X = 0;
     private const int FIRST_MENU_UI_POS_Y = 0;
     private const int MENU_UI_INTERVAL_Y = 2;
-
-    private const ConsoleKey CURSOR_UP = ConsoleKey.UpArrow;
-    private const ConsoleKey CURSOR_Down = ConsoleKey.DownArrow;
+       
 
     private Widget[] mMenuUIs;
 
+    //nowCursor추가
+    private EMenu nowCursor;
     public MenuScene()
     {
+        nowCursor = EMenu.NewGame;
         InitMenus();
-        foreach (GameObject gameObject in mMenuUIs!)
-        {
-            NewGameObject(gameObject);
-        }
+        
     }
     public void InitMenus() 
     {
@@ -36,33 +34,47 @@ class MenuScene : Scene , IInputable
         {            
             Debug.Assert(menuUINames[i] != null);
 
-            mMenuUIs[i] = new Widget(screenPos, menuUINames[i], false);
+            mMenuUIs[i] = new Widget(screenPos, menuUINames[i], false);            
             NewGameObject(mMenuUIs[i]);
 
             screenPos.y += MENU_UI_INTERVAL_Y;
-
-        }        
+        }
+        mMenuUIs[0].IsCursorVisible = true;
     }
 
     
-    //Todo : 메뉴 인풋 구현 
+
+    //Todo : 메뉴 인풋 구현
     public void Input() 
     {
         if (InputManager.IsCurrentKeyDown(EVirtualKey.UP_ARROW))
         {
-            CursorUP();
-            
+            CursorUP(); 
         }
         if (InputManager.IsCurrentKeyDown(EVirtualKey.DOWN_ARROW))
         {
             CursorDown();
         }
+
     }
-    private void CursorUP() 
+    private void CursorUP()
     {
-
+        mMenuUIs[(int)nowCursor].IsCursorVisible = false;        
+        nowCursor = (EMenu)((int)(nowCursor) + (int)EMenu.Max - 1);
+        mMenuUIs[(int)nowCursor].IsCursorVisible = true;
     }
 
-    private void CursorDown() { }
+    private void CursorDown() 
+    {
+        mMenuUIs[(int)nowCursor].IsCursorVisible = false;
+        nowCursor = (EMenu)((int)(nowCursor+1) % (int)EMenu.Max);
+        mMenuUIs[(int)nowCursor].IsCursorVisible = true;
+    }
 
+    //
+    public override void Update()
+    {
+              
+        base.Update();
+    }
 }

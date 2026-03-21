@@ -4,14 +4,13 @@ class TextRenderer : Renderer
 {  
     private ConsolePoint mScrenPos;
     private string mText;
-   
+    
 
     public TextRenderer(ConsolePoint screenPos, string text, bool isDrawing)
     {
         mScrenPos = screenPos;
         mText = text;
-        IsDrawing = isDrawing;
-        
+        IsDrawing = isDrawing;        
     }
 
     override public void Draw()
