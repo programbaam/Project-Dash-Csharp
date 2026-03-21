@@ -7,7 +7,11 @@ class Text2DRenderer : Renderer
     private string[] mText2D;
     private ConsoleColor mColor;
 
-    public ConsolePoint ScreenPos { get; set; }
+    public ConsolePoint ScreenPos
+    {
+        get =>mScreenPos; 
+        set =>mScreenPos = value;
+    }
 
     public override void Draw()
     {
@@ -15,8 +19,14 @@ class Text2DRenderer : Renderer
         {
             return;
         }
-
+        
         Debug.Assert(mText2D != null);
+
+        if (mScreenPos.x < 0 || mScreenPos.y < 0)
+        {
+            return;
+        }
+
         Console.ForegroundColor = mColor;
         for (int i = 0; i < mText2D.Length; i++)
         {
