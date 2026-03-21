@@ -8,4 +8,8 @@ struct SyncSet
     //Render
     public HashSet<Renderer> newRenderers;
     public HashSet<Renderer> deleteRenderers;
+
+    //Scene
+    public bool isChangeScene;
+    public EScene scene;
 }

@@ -51,20 +51,32 @@ class GameManager
             mSceneManager.Init();
 
             // Input
-            mInputManager.Input();
+            mInputManager.Input();                      
 
             // Update
             mSceneManager.Update();
+
+            if (GameManager.mSyncSet.isChangeScene)
+            {
+                mSceneManager.ChangeScene(GameManager.mSyncSet.scene);
+                SyncInputs();
+                SyncRenderers();
+                GameManager.mSyncSet.isChangeScene = false;
+                continue;
+            }
             
+
             //Sync
             SyncInputs();
-            SyncRenderers();
+            SyncRenderers();            
 
             //Render
             mRendererManager.Render();
 
 
-            //Destroy
+            //Destroy           
+            mSceneManager.Destroy();
+           
         }
     }
 

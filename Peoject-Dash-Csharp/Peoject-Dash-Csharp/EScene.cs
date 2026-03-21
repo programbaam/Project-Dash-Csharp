@@ -1,0 +1,5 @@
+﻿enum EScene
+{
+    Menu,
+    Game
+}

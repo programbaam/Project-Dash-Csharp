@@ -5,9 +5,8 @@ class MenuScene : Scene , IInputable
 {
     private const int FIRST_MENU_UI_POS_X = 0;
     private const int FIRST_MENU_UI_POS_Y = 0;
-    private const int MENU_UI_INTERVAL_Y = 2;
-       
-
+    private const int MENU_UI_INTERVAL_Y = 2;       
+   
     private Widget[] mMenuUIs;
 
     //nowCursor추가
@@ -47,6 +46,21 @@ class MenuScene : Scene , IInputable
     //Todo : 메뉴 인풋 구현
     public void Input() 
     {
+        if (InputManager.IsCurrentKeyDown(EVirtualKey.SPACE))
+        {
+           
+            switch(nowCursor)
+            {
+                case EMenu.NewGame:
+                    GameManager.mSyncSet.scene = EScene.Game;
+                    GameManager.mSyncSet.isChangeScene = true;
+                    return;
+                case EMenu.ScoreMenu:
+                    return;
+                case EMenu.Quit:
+                    return;
+            }
+        }
         if (InputManager.IsCurrentKeyDown(EVirtualKey.UP_ARROW))
         {
             CursorUP(); 
@@ -55,12 +69,13 @@ class MenuScene : Scene , IInputable
         {
             CursorDown();
         }
+        
 
     }
     private void CursorUP()
     {
         mMenuUIs[(int)nowCursor].IsCursorVisible = false;        
-        nowCursor = (EMenu)((int)(nowCursor) + (int)EMenu.Max - 1);
+        nowCursor = (EMenu)(((int)nowCursor + (int)EMenu.Max - 1)%(int)EMenu.Max) ;
         mMenuUIs[(int)nowCursor].IsCursorVisible = true;
     }
 
@@ -71,10 +86,9 @@ class MenuScene : Scene , IInputable
         mMenuUIs[(int)nowCursor].IsCursorVisible = true;
     }
 
-    //
+    
     public override void Update()
-    {
-              
+    {              
         base.Update();
     }
 }
