@@ -5,6 +5,9 @@ class Text2DRenderer : Renderer
 {
     private ConsolePoint mScreenPos;
     private string[] mText2D;
+    private ConsoleColor mColor;
+
+    public ConsolePoint ScreenPos { get; set; }
 
     public override void Draw()
     {
@@ -14,17 +17,21 @@ class Text2DRenderer : Renderer
         }
 
         Debug.Assert(mText2D != null);
+        Console.ForegroundColor = mColor;
         for (int i = 0; i < mText2D.Length; i++)
         {
             Console.SetCursorPosition(mScreenPos.x, mScreenPos.y + i);
             Console.Write(mText2D[i]);
         }
+
+        Console.ForegroundColor = ConsoleColor.White;
     }
 
-    public Text2DRenderer(ConsolePoint screenPos, string[] text2D, bool isDrawing = true)
+    public Text2DRenderer(ConsolePoint screenPos, string[] text2D, ConsoleColor color = ConsoleColor.White,bool isDrawing = true)
     {
         mScreenPos = screenPos;
         IsDrawing = isDrawing;
+        mColor = color;
 
         mText2D = text2D;
     }
