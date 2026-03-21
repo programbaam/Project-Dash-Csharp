@@ -58,6 +58,7 @@ class GameManager
 
             if (GameManager.mSyncSet.isChangeScene)
             {
+                Console.Clear();
                 mSceneManager.ChangeScene(GameManager.mSyncSet.scene);
                 SyncInputs();
                 SyncRenderers();
