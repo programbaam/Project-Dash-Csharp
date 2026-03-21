@@ -38,7 +38,7 @@ class Player : Actor, IInputable
     {
         mJumpPower = jumpPower;
         mIsJumping = false;
-        mRigidBody2D = new RigidBody2D(gravity: 0.0625f, topY: 3.0f, groundY: 12.0f);
+        mRigidBody2D = new RigidBody2D(gravity: 0.0625f, topY: 5.0f, groundY: 13.0f);
     }
 
 }
