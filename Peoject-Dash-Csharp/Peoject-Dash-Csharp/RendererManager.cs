@@ -17,22 +17,9 @@ class RendererManager
 
     public void Render()
     {
-        Console.Clear();
         foreach (Renderer renderer in mRenderers)
         {
-
             renderer.Draw();
-
-        }
-    }
-
-    // TODO : 추후 사용안할 시 삭제
-    public void ClearConsole()
-    { 
-        string emptySpaceWidth = " ".PadRight(GameManager.ConsoleWidth);
-        for (int i = 0; i < GameManager.ConsoleHeight; ++i)
-        {
-            Console.WriteLine(emptySpaceWidth);
         }
     }
 }
