@@ -17,15 +17,27 @@ class ScoreScene : Scene
     public ScoreScene()
     {
         mUserScores = File.ReadAllLines("resource/UserScores.csv", Encoding.UTF8);
+        Debug.Assert(mUserScores != null);
         SortScores();
+        mUserScoresUI = new Widget[mUserScores.Length];
         InitUserScores();
+    }
+
+    public void InitUserScores()
+    {
+        screenPos.x = FIRST_SCORE_UI_POS_X;
+        screenPos.y = FIRST_SCORE_UI_POS_Y;
+
+        Widget MenuTpye = new Widget(screenPos, "점수화면", false);
+        NewGameObject(MenuTpye);
+        screenPos.y++;
 
         for (int i = 0; i < mUserScoresUI!.Length; ++i)
         {
             screenPos.x = FIRST_SCORE_UI_POS_X;
             screenPos.y += SCORE_UI_INTERVAL_Y;
 
-            Widget rank = new Widget(screenPos, $"{i+1,3}.", false);
+            Widget rank = new Widget(screenPos, $"{i + 1,3}.", false);
             NewGameObject(rank);
 
             screenPos.x += SCORE_UI_INTERVAL_X;
@@ -34,19 +46,7 @@ class ScoreScene : Scene
         }
     }
 
-    public void InitUserScores()
-    {
-        Debug.Assert(mUserScores != null);
-
-        screenPos.x = FIRST_SCORE_UI_POS_X;
-        screenPos.y = FIRST_SCORE_UI_POS_Y;
-
-        mUserScoresUI = new Widget[mUserScores.Length];
-        Widget MenuTpye = new Widget(screenPos, "점수화면", false);
-        NewGameObject(MenuTpye);
-        screenPos.y++;
-    }
-
+    //TODO SaveUserScore 구현해야함
     public void SaveUserScore()
     {
         mUserScores = new string[mUserScores.Length];
