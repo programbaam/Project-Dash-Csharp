@@ -19,8 +19,10 @@ class GameScene : Scene
         
         if (mPlayer.LifeCounter == 0)
         {
+            
             ScoreScene.sScore = mScore-1;
             SaveScore(mScore -1); //사용자가 보는 마지막 점수와 (0.16) DeltaTime 차이(1점차이)
+            
             GameManager.mSyncSet.isChangeScene = true;
             GameManager.mSyncSet.scene = EScene.GameOver;
         }
@@ -28,8 +30,12 @@ class GameScene : Scene
 
     public GameScene()
     {
+        mScore = 0;
+        Time.GameTime =0;
+
         ConsolePoint consolePoint;
         Vector2D worldLocation;
+        
 
         //Widget 사용시 LOCAL_CONTENTS_POS_X 값만큼 빼줘야 함
         consolePoint.x = 70 - 4;

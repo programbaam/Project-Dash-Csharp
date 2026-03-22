@@ -65,7 +65,7 @@ class SceneManager
                     Delete();
                     ActiveScene.Release();
                     ActiveScene.Destroy();
-                    ActiveScene =new GameScene();
+                    ActiveScene =new GameScene();                   
                     InitScene();
                     break;
                 }
