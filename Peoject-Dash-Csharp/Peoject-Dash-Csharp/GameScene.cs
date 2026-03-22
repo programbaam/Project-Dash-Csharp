@@ -5,7 +5,7 @@ class GameScene : Scene
 {
     private readonly Widget mScoreWidget;
     private readonly Player mPlayer;
-    private readonly Actor mObstacle;
+    private readonly Obstacle mObstacle;
     private readonly Actor mGround;
     public override void Update()
     {
@@ -37,6 +37,7 @@ class GameScene : Scene
 
         NewGameObject(new Widget(consolePoint, Divider, false));
 
+        //Player
         string[] playerTexts =
         {
             " * ",
@@ -50,6 +51,7 @@ class GameScene : Scene
         mPlayer = new Player(worldLocation: worldLocation,text2D: playerTexts, jumpPower: 10, color: ConsoleColor.Magenta);
         NewGameObject(mPlayer);
 
+        //Obstacle
         string[] obstacleTexts =
         {
             "****",
@@ -60,7 +62,7 @@ class GameScene : Scene
 
         worldLocation.x = 50.0f;
         worldLocation.y = 12.0f;
-        mObstacle = new Actor(worldLocation: worldLocation, text2D: obstacleTexts, color: ConsoleColor.Blue);
+        mObstacle = new Obstacle(worldLocation: worldLocation, text2D: obstacleTexts, color: ConsoleColor.Blue);
         NewGameObject(mObstacle);
 
 
