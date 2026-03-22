@@ -8,20 +8,17 @@ static class SaveFile
 
     static public void CheckSaveFile()
     {
-        string folderPath = "resource";
-        string filePath = "resource/UserScores.csv";
-
         // 폴더가 없을때
-        if (!Directory.Exists(folderPath))
+        if (!Directory.Exists(FolderPath))
         {
-            Directory.CreateDirectory(folderPath);
-            File.Create(filePath).Close();
+            Directory.CreateDirectory(FolderPath);
+            File.Create(FilePath).Close();
         }
         else //폴더는 있는데 파일이 없을때
         {
-            if (!File.Exists(filePath))
+            if (!File.Exists(FilePath))
             {
-                File.Create(filePath).Close();
+                File.Create(FilePath).Close();
             }
         }
     }
