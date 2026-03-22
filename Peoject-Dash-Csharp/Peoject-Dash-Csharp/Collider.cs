@@ -3,7 +3,7 @@
     private Vector2D mWorldLocation;
     private Rect mRect;
 
-    private Vector2D WorldLocation
+    public Vector2D WorldLocation
     {
         get => mWorldLocation; 
         set => mWorldLocation = value;
@@ -41,5 +41,11 @@
         return xOverlap && yOverlap;
     }
 
+    public Collider(Vector2D worldLocation, Rect rect, ELayerTag layerTag)
+    {
+        mWorldLocation = worldLocation;
+        mRect = rect;
+        LayerTag = layerTag;
+    }
 }
 
