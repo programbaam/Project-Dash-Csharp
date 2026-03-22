@@ -58,6 +58,7 @@ class MenuScene : Scene , IInputable
                 case EMenu.ScoreMenu:
                     return;
                 case EMenu.Quit:
+                    Environment.Exit(0);
                     return;
             }
         }
