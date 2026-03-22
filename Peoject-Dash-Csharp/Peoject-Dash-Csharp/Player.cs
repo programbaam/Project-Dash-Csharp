@@ -3,10 +3,16 @@ using System;
 
 class Player : Actor, IInputable, ICollidable
 {
+    const int LIFE_COUNTER = 1;
+
     private RigidBody2D mRigidBody2D;
     private float mJumpPower;
     private bool mIsJumping;
     private Collider mCollider;
+    
+    public int LifeCounter { get; set; }
+    
+
     public void Input()
     {
         if (InputManager.IsCurrentKeyDown(EVirtualKey.ESC))
@@ -24,9 +30,10 @@ class Player : Actor, IInputable, ICollidable
 
     public void OnCollision()
     {
+        LifeCounter--;       
         
     }
-
+    
     public override void Update()
     {
         if (mIsJumping)
@@ -62,6 +69,10 @@ class Player : Actor, IInputable, ICollidable
 
         mCollider = new Collider(worldLocation, rect, ELayerTag.Player);
         NewComponemt(mCollider);
+
+
+        LifeCounter = LIFE_COUNTER;
+
     }
 
 }

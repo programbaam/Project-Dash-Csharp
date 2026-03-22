@@ -6,7 +6,7 @@ class Obstacle: Actor, ICollidable
     private Collider mCollider;
 
     const float OBSTACLE_SPEED = 4.0f;
-    const float ADD_OBSTACLE_SPEED = 4.0f;
+    const float ADD_OBSTACLE_SPEED = 2.0f;
 
     private float mObstacleSpeed;
     //장애물 가속도
@@ -25,6 +25,7 @@ class Obstacle: Actor, ICollidable
             base.Destroy();
             
         }
+
         AddObstacleSpeed(mObstacleSpeed);
 
         Vector2D curruntPos = WorldLocation;
@@ -44,7 +45,8 @@ class Obstacle: Actor, ICollidable
 
     public void OnCollision()
     {
-
+        base.Release();
+        base.Destroy();
     }
 
 
