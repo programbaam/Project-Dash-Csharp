@@ -41,6 +41,7 @@ abstract class GameObject
     }
     abstract public void Update();
 
+
     protected void ReleaseComponent(Component component)
     {
         Debug.Assert(component != null);
