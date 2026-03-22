@@ -10,6 +10,9 @@ class GameScene : Scene
     public override void Update()
     {
         base.Update();
+
+        Time.GameTime += Time.DeltaTime;
+        UpdateScore();
     }
 
     public GameScene()
@@ -26,7 +29,6 @@ class GameScene : Scene
         consolePoint.x = 86 - 4;
         consolePoint.y = 1;
 
-        //TODO 실시간 변화하는 위젯 만들어야 함
         mScoreWidget = new Widget(consolePoint, $"{Time.DeltaTime,13:N0}", false);
         NewGameObject(mScoreWidget);
 
@@ -91,6 +93,13 @@ class GameScene : Scene
         consolePoint.y = 21;
 
         NewGameObject(new Widget(consolePoint, "게임종료 : ESC 키", false));
+    }
+
+    public void UpdateScore()
+    {
+        int score = (int)(Time.GameTime * 10);
+
+        mScoreWidget.UpdateText($"{score,13:N0}");
     }
 }
 

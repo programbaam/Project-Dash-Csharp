@@ -21,5 +21,10 @@ class TextRenderer : Renderer
             Console.Write(mText);
         }
     }
+
+    public void UpdateText(string text)
+    {
+        mText = text;
+    }
 }
 

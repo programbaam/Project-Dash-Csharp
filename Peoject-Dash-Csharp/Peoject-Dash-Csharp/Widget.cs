@@ -49,5 +49,9 @@ class Widget : GameObject
         base.Destroy();
     }
 
+    public void UpdateText(string text)
+    {
+        mContentsRenderer.UpdateText(text);
+    }
 }
 
