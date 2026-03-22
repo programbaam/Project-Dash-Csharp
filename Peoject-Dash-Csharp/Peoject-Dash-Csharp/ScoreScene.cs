@@ -18,9 +18,8 @@ class ScoreScene : Scene, IInputable
 
     public ScoreScene()
     {
-        
-        string folderPath = "resource";
-        string filepath = "resource/UserScores.csv";
+        SaveFile.CheckSaveFile();
+        mUserScores = File.ReadAllLines(SaveFile.FilePath, Encoding.UTF8);
 
         Debug.Assert(mUserScores != null);
         if (mUserScores.Length > 0)
