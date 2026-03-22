@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 
-class ScoreScene : Scene
+class ScoreScene : Scene, IInputable
 {
     private const int FIRST_SCORE_UI_POS_X = 0;
     private const int FIRST_SCORE_UI_POS_Y = 1;
@@ -16,9 +16,29 @@ class ScoreScene : Scene
 
     public ScoreScene()
     {
-        mUserScores = File.ReadAllLines("resource/UserScores.csv", Encoding.UTF8);
+        string folderPath = "resource";
+        string filepath = "resource/UserScores.csv";
+
+        // 폴더가 없을때
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+            File.Create(filepath).Close();
+        }
+        else //폴더는 있는데 파일이 없을때
+        {
+            if (!File.Exists(filepath))
+            { 
+                File.Create(filepath).Close();
+            }
+        }
+
+        mUserScores = File.ReadAllLines(filepath, Encoding.UTF8);
         Debug.Assert(mUserScores != null);
-        SortScores();
+        if (mUserScores.Length > 0)
+        { 
+            SortScores();
+        }
         mUserScoresUI = new Widget[mUserScores.Length];
         InitUserScores();
     }
@@ -31,6 +51,13 @@ class ScoreScene : Scene
         Widget MenuTpye = new Widget(screenPos, "점수화면", false);
         NewGameObject(MenuTpye);
         screenPos.y++;
+
+        if (mUserScores.Length == 0)
+        {
+            screenPos.x = FIRST_SCORE_UI_POS_X;
+            screenPos.y += SCORE_UI_INTERVAL_Y;
+            NewGameObject(new Widget(screenPos, "아직 점수가 존재하지 않습니다!", false));
+        }
 
         for (int i = 0; i < mUserScoresUI!.Length; ++i)
         {
@@ -45,11 +72,19 @@ class ScoreScene : Scene
             NewGameObject(mUserScoresUI[i]);
         }
     }
-
-    //TODO SaveUserScore 구현해야함
-    public void SaveUserScore()
+    public void Input()
     {
-        mUserScores = new string[mUserScores.Length];
+        if (InputManager.IsCurrentKeyDown(EVirtualKey.ESC))
+        { 
+            GameManager.mSyncSet.scene = EScene.Menu;
+            GameManager.mSyncSet.isChangeScene = true;
+        }
+    }
+
+    static public void SaveUserScore(int score)
+    {
+        string userScore = $"{score}\n";
+        File.AppendAllText("resource/UserScores.csv", userScore);
     }
 
     private void SortScores()
