@@ -9,6 +9,7 @@ class ScoreScene : Scene, IInputable
     private const int FIRST_SCORE_UI_POS_Y = 1;
     private const int SCORE_UI_INTERVAL_Y = 1;
     private const int SCORE_UI_INTERVAL_X = 7;
+    private const int MAX_RANK = 20;
 
     private string[] mUserScores;
     private Widget[] mUserScoresUI; 
@@ -35,8 +36,7 @@ class ScoreScene : Scene, IInputable
         screenPos.x = FIRST_SCORE_UI_POS_X;
         screenPos.y = FIRST_SCORE_UI_POS_Y;
 
-        Widget MenuTpye = new Widget(screenPos, "점수화면", false);
-        NewGameObject(MenuTpye);
+        NewGameObject(new Widget(screenPos, "점수화면", false));
         screenPos.y++;
 
         if (mUserScores.Length == 0)
@@ -46,18 +46,23 @@ class ScoreScene : Scene, IInputable
             NewGameObject(new Widget(screenPos, "아직 점수가 존재하지 않습니다!", false));
         }
 
-        for (int i = 0; i < mUserScoresUI!.Length; ++i)
+        int visibleScoresCnt = Math.Min(mUserScoresUI!.Length, MAX_RANK);
+
+        for (int i = 0; i < visibleScoresCnt; ++i)
         {
             screenPos.x = FIRST_SCORE_UI_POS_X;
             screenPos.y += SCORE_UI_INTERVAL_Y;
 
-            Widget rank = new Widget(screenPos, $"{i + 1,3}.", false);
-            NewGameObject(rank);
+            NewGameObject(new Widget(screenPos, $"{i + 1,2}.", false));
 
             screenPos.x += SCORE_UI_INTERVAL_X;
             mUserScoresUI[i] = new Widget(screenPos, mUserScores[i], false);
             NewGameObject(mUserScoresUI[i]);
         }
+
+        screenPos.x = FIRST_SCORE_UI_POS_X;
+        screenPos.y += 2;
+        NewGameObject(new Widget(screenPos, "ESC 키를 눌러 메뉴화면으로 돌아갈 수 있습니다.", false));
     }
     public void Input()
     {
