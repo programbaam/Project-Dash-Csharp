@@ -18,7 +18,8 @@ class GameScene : Scene
         UpdateScore(mScore);
         
         if (mPlayer.LifeCounter == 0)
-        {     
+        {
+            ScoreScene.sScore = mScore-1;
             SaveScore(mScore -1); //사용자가 보는 마지막 점수와 (0.16) DeltaTime 차이(1점차이)
             GameManager.mSyncSet.isChangeScene = true;
             GameManager.mSyncSet.scene = EScene.GameOver;
