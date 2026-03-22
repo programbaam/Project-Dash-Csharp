@@ -90,7 +90,12 @@ class GameScene : Scene
         NewGameObject(new Widget(consolePoint, Divider, false));
 
         consolePoint.x = 0 - 4;
-        consolePoint.y = 21;
+        consolePoint.y = 22;
+
+        NewGameObject(new Widget(consolePoint, "게임조작 : SPACE BAR 키로 점프", false));
+
+        consolePoint.x = 0 - 4;
+        consolePoint.y = 23;
 
         NewGameObject(new Widget(consolePoint, "게임종료 : ESC 키", false));
     }
