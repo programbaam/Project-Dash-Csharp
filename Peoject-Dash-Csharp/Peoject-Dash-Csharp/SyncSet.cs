@@ -9,6 +9,10 @@ struct SyncSet
     public HashSet<Renderer> newRenderers;
     public HashSet<Renderer> deleteRenderers;
 
+    //Collision
+    public HashSet<(Collider collider, ICollidable owner)> newCollision;
+    public HashSet<(Collider collider, ICollidable owner)> deleteCollision;
+
     //Scene
     public bool isChangeScene;
     public EScene scene;
