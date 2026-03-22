@@ -6,9 +6,30 @@ static class GameMath
     // 콘솔 화면 임계값
     public const float VIEW_THRESHOLD = 0.5f;
 
+
+    public static bool IsNearlyLess(float lvalue, float rvalue)
+    {
+        return lvalue < rvalue - EPSILON;
+    }
+
+    public static bool IsNearlyGreater(float lvalue, float rvalue)
+    {
+        return lvalue > rvalue + EPSILON;
+    }
+
     public static bool IsNearlyEqual(float lvalue, float rvalue)
     {
         return Math.Abs(lvalue - rvalue) < EPSILON;
+    }
+
+    public static bool IsNearlyLessOrEqual(float lvalue, float rvalue)
+    {
+        return lvalue < rvalue + EPSILON;
+    }
+
+    public static bool IsNearlyGreaterOrEqual(float lvalue, float rvalue)
+    {
+        return lvalue > rvalue - EPSILON;
     }
 
     public static bool IsZero(float value)
