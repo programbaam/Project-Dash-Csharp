@@ -48,7 +48,7 @@ class GameScene : Scene
         worldLocation.x = 5.0f;
         worldLocation.y = 13.0f;
 
-        mPlayer = new Player(worldLocation: worldLocation,text2D: playerTexts, jumpPower: 10, color: ConsoleColor.Magenta);
+        mPlayer = new Player(worldLocation: worldLocation,text2D: playerTexts, jumpPower: 3.0f, color: ConsoleColor.Magenta);
         NewGameObject(mPlayer);
 
         //Obstacle
