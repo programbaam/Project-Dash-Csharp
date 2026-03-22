@@ -8,7 +8,7 @@ class ColorPointComparer : IComparer<(int index, string color)>
 {
     public int Compare((int index, string color) lvalue, (int index, string color) rvalue)
     {
-        return lvalue.index.CompareTo(rvalue.index);
+        return rvalue.index.CompareTo(lvalue.index);
     }
 }
 

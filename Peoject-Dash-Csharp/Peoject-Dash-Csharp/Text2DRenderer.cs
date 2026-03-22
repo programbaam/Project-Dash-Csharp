@@ -31,16 +31,14 @@ class Text2DRenderer : Renderer
 
         for (int i = 0; i < mText2D.Length; i++)
         {
-
-            RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i]);
-            //if (mColor == RendererManager.RESET)
-            //{
-            //    RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i]);
-            //}
-            //else
-            //{
-            //    RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i], color: mColor);
-            //}
+            if (mColor == RendererManager.RESET)
+            {
+                RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i]);
+            }
+            else
+            {
+                RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i], color: mColor);
+            }
         }
 
     }
