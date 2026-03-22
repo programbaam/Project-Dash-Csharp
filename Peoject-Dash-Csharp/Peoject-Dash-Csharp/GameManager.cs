@@ -9,6 +9,7 @@ class GameManager
     private readonly RendererManager mRendererManager;
     private readonly InputManager mInputManager;
     private readonly SceneManager mSceneManager;
+    private readonly CollisionManager mCollisionManager;
 
     private Stopwatch mStopwatch;
     private long mLastTick;
@@ -24,10 +25,13 @@ class GameManager
         GameManager.mSyncSet.deleteInputs = new HashSet<IInputable>();
         GameManager.mSyncSet.newRenderers = new HashSet<Renderer>();
         GameManager.mSyncSet.deleteRenderers = new HashSet<Renderer>();
+        GameManager.mSyncSet.newCollision = new HashSet<(Collider collider, ICollidable? owner)>();
+        GameManager.mSyncSet.deleteCollision = new HashSet<(Collider collider, ICollidable? owner)>();
 
         mInputManager = new InputManager();
         mRendererManager = new RendererManager();
         mSceneManager = new SceneManager();
+        mCollisionManager = new CollisionManager();
 
         mStopwatch = new Stopwatch();
         mLastTick = 0;
@@ -63,12 +67,16 @@ class GameManager
             // Update
             mSceneManager.Update();
 
+            // Collision
+            mCollisionManager.Collision();
+
             if (GameManager.mSyncSet.isChangeScene)
             {
                 Console.Clear();
                 mSceneManager.ChangeScene(GameManager.mSyncSet.scene);
                 SyncInputs();
                 SyncRenderers();
+                SyncCollision();
                 GameManager.mSyncSet.isChangeScene = false;
                 continue;
             }
@@ -76,7 +84,8 @@ class GameManager
 
             //Sync
             SyncInputs();
-            SyncRenderers();            
+            SyncRenderers();
+            SyncCollision();
 
             //Render
             mRendererManager.Render();
@@ -110,5 +119,14 @@ class GameManager
 
         newRenderers.Clear();
         deleteRenderers.Clear();
+    }
+
+    public void SyncCollision()
+    {
+        mCollisionManager.UnionWithNewCollision();
+        mCollisionManager.ExceptWithDeleteCollision();
+
+        mSyncSet.newCollision.Clear();
+        mSyncSet.deleteCollision.Clear();
     }
 }
