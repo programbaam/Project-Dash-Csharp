@@ -11,20 +11,23 @@ class ScoreScene : Scene, IInputable
     private const int SCORE_UI_INTERVAL_X = 7;
 
     private string[] mUserScores;
-    private Widget[] mUserScoresUI;
+    private Widget[] mUserScoresUI; 
     private ConsolePoint screenPos;
+
+    public static int sScore; 
 
     public ScoreScene()
     {
-        SaveFile.CheckSaveFile();
-        mUserScores = File.ReadAllLines(SaveFile.FilePath, Encoding.UTF8);
+        
+        string folderPath = "resource";
+        string filepath = "resource/UserScores.csv";
 
         Debug.Assert(mUserScores != null);
         if (mUserScores.Length > 0)
         { 
             SortScores();
         }
-        mUserScoresUI = new Widget[mUserScores.Length];
+        mUserScoresUI = new Widget[mUserScores.Length]; 
         InitUserScores();
     }
 
