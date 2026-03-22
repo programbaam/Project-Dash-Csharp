@@ -69,6 +69,15 @@ class SceneManager
                     InitScene();
                     break;
                 }
+            case EScene.Score:
+                {
+                    Delete();
+                    ActiveScene.Release();
+                    ActiveScene.Destroy();
+                    ActiveScene = new ScoreScene();
+                    InitScene();
+                    break;
+                }
             default:
                 {
                     Debug.Assert(false, "없는 씬");

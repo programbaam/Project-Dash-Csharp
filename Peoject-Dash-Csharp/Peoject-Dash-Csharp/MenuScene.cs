@@ -56,6 +56,8 @@ class MenuScene : Scene , IInputable
                     GameManager.mSyncSet.isChangeScene = true;
                     return;
                 case EMenu.ScoreMenu:
+                    GameManager.mSyncSet.scene = EScene.Score;
+                    GameManager.mSyncSet.isChangeScene = true;
                     return;
                 case EMenu.Quit:
                     Environment.Exit(0);
