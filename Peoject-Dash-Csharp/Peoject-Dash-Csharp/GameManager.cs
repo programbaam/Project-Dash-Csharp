@@ -47,7 +47,12 @@ class GameManager
             //Ticks를 초단위로 변환
             long currentTick = mStopwatch.ElapsedTicks;
             //Stopwatch.Frequency : 1초를 틱단위(long)로 표현한 수
-            Time.DeltaTime = (float)((currentTick - mLastTick) / Stopwatch.Frequency);
+            Time.DeltaTime = (float)(currentTick - mLastTick) / Stopwatch.Frequency;
+            if (Time.DeltaTime < 0.16) //대략 60프레임
+            { 
+                continue;
+            }
+            mLastTick = currentTick;
 
             // Init
             mSceneManager.Init();
