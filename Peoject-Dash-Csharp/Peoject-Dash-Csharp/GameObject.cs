@@ -27,6 +27,14 @@ abstract class GameObject
         {            
             GameManager.mSyncSet.newInputs.Add(inputable);
         }
+
+        if (component is Collider collider)
+        {
+            
+            ICollidable? collidable = this as ICollidable;
+
+            GameManager.mSyncSet.newCollision.Add((collider, collidable));
+        }
     }
 
     virtual public void Init()
@@ -54,6 +62,12 @@ abstract class GameObject
         if (component is IInputable inputable)
         {
             GameManager.mSyncSet.deleteInputs.Add(inputable);
+        }
+        if (component is Collider collider)
+        {
+            ICollidable? collidable = this as ICollidable;
+
+            GameManager.mSyncSet.deleteCollision.Add((collider, collidable));
         }
     }
     virtual public void Release()
