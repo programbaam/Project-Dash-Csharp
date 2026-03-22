@@ -3,4 +3,5 @@
     Menu,
     Game,
     Score,
+    GameOver
 }
