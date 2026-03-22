@@ -1,30 +1,28 @@
-﻿
-using System;
+﻿using System.IO;
+using static System.Formats.Asn1.AsnWriter;
 
 class GameScene : Scene
 {
     private readonly Widget mScoreWidget;
     private readonly Player mPlayer;
     private readonly Obstacle mObstacle;
-    private readonly Actor mGround;
-
-    int score;
-
-   
+    private readonly Actor mGround; 
+    private int mScore;
 
     public override void Update()
     {
         base.Update();
 
         Time.GameTime += Time.DeltaTime;
-        UpdateScore();
-
+        mScore = (int)(Time.GameTime * 10);
+        UpdateScore(mScore);
+        
         if (mPlayer.LifeCounter == 0)
         {     
+            SaveScore(mScore -1); //사용자가 보는 마지막 점수와 (0.16) DeltaTime 차이(1점차이)
             GameManager.mSyncSet.isChangeScene = true;
             GameManager.mSyncSet.scene = EScene.GameOver;
         }
-
     }
 
     public GameScene()
@@ -33,15 +31,16 @@ class GameScene : Scene
         Vector2D worldLocation;
 
         //Widget 사용시 LOCAL_CONTENTS_POS_X 값만큼 빼줘야 함
-        consolePoint.x = 74 - 4;
+        consolePoint.x = 70 - 4;
         consolePoint.y = 1;
 
         NewGameObject(new Widget(consolePoint, "게임 점수 :", false));
 
-        consolePoint.x = 86 - 4;
+        consolePoint.x = 82 - 4;
         consolePoint.y = 1;
 
-        mScoreWidget = new Widget(consolePoint, $"{Time.DeltaTime,13:N0}", false);        
+        mScore = 0;
+        mScoreWidget = new Widget(consolePoint, $"{mScore,13:N0}", false);
         NewGameObject(mScoreWidget);
 
         consolePoint.x = 0 - 4;
@@ -112,14 +111,17 @@ class GameScene : Scene
         NewGameObject(new Widget(consolePoint, "게임종료 : ESC 키", false));
     }
 
-    public void UpdateScore()
+    public void UpdateScore(int score)
     {
-        score = (int)(Time.GameTime * 10);        
         mScoreWidget.UpdateText($"{score,13:N0}");
     }
 
-    
-    
+    public void SaveScore(int score)
+    {
+        SaveFile.CheckSaveFile();
 
+        string userScore = $"{score}\n";
+        File.AppendAllText("resource/UserScores.csv", userScore);
+    }
 }
 

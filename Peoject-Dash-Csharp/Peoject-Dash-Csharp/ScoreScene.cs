@@ -16,24 +16,9 @@ class ScoreScene : Scene, IInputable
 
     public ScoreScene()
     {
-        string folderPath = "resource";
-        string filepath = "resource/UserScores.csv";
+        SaveFile.CheckSaveFile();
+        mUserScores = File.ReadAllLines(SaveFile.FilePath, Encoding.UTF8);
 
-        // 폴더가 없을때
-        if (!Directory.Exists(folderPath))
-        {
-            Directory.CreateDirectory(folderPath);
-            File.Create(filepath).Close();
-        }
-        else //폴더는 있는데 파일이 없을때
-        {
-            if (!File.Exists(filepath))
-            { 
-                File.Create(filepath).Close();
-            }
-        }
-
-        mUserScores = File.ReadAllLines(filepath, Encoding.UTF8);
         Debug.Assert(mUserScores != null);
         if (mUserScores.Length > 0)
         { 
@@ -79,12 +64,6 @@ class ScoreScene : Scene, IInputable
             GameManager.mSyncSet.scene = EScene.Menu;
             GameManager.mSyncSet.isChangeScene = true;
         }
-    }
-
-    static public void SaveUserScore(int score)
-    {
-        string userScore = $"{score}\n";
-        File.AppendAllText("resource/UserScores.csv", userScore);
     }
 
     private void SortScores()
