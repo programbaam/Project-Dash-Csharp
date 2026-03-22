@@ -6,17 +6,26 @@ class Obstacle: Actor, ICollidable
     private Collider mCollider;
 
     const float OBSTACLE_SPEED = 4.0f;
+    const float ADD_OBSTACLE_SPEED = 4.0f;
 
-    private float mObstacleSpeed;   
-    private bool mGroundEnd=false;
+    private float mObstacleSpeed;
+    //장애물 가속도
+    private float mAddObstacleSpeed;
+
+    private bool mGroundEnd;
+  
+    
+
     public override void Update()
     {
-        if (mGroundEnd)//게임씬???
+        mGroundEnd = false;
+        if (mGroundEnd)
         {
             base.Release();
             base.Destroy();
-            //점수 획득???
-        }       
+            
+        }
+        AddObstacleSpeed(mObstacleSpeed);
 
         Vector2D curruntPos = WorldLocation;
 
@@ -24,6 +33,13 @@ class Obstacle: Actor, ICollidable
 
         WorldLocation = curruntPos;
         mCollider.WorldLocation = curruntPos;
+    }
+
+    public float AddObstacleSpeed(float currentSpeed)
+    {
+        mAddObstacleSpeed = ADD_OBSTACLE_SPEED;
+        mObstacleSpeed = currentSpeed + mAddObstacleSpeed;
+        return mObstacleSpeed;
     }
 
     public void OnCollision()
