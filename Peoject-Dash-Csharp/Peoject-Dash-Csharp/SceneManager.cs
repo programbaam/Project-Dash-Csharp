@@ -78,6 +78,16 @@ class SceneManager
                     InitScene();
                     break;
                 }
+            case EScene.GameOver:
+                {
+                    
+                    Delete();
+                    ActiveScene.Release();
+                    ActiveScene.Destroy();
+                    ActiveScene = new GameOverScene();
+                    InitScene();
+                    break;
+                }
             default:
                 {
                     Debug.Assert(false, "없는 씬");

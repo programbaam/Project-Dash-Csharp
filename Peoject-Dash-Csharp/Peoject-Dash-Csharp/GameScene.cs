@@ -7,12 +7,24 @@ class GameScene : Scene
     private readonly Player mPlayer;
     private readonly Obstacle mObstacle;
     private readonly Actor mGround;
+
+    int score;
+
+   
+
     public override void Update()
     {
         base.Update();
 
         Time.GameTime += Time.DeltaTime;
         UpdateScore();
+
+        if (mPlayer.LifeCounter == 0)
+        {     
+            GameManager.mSyncSet.isChangeScene = true;
+            GameManager.mSyncSet.scene = EScene.GameOver;
+        }
+
     }
 
     public GameScene()
@@ -29,7 +41,7 @@ class GameScene : Scene
         consolePoint.x = 86 - 4;
         consolePoint.y = 1;
 
-        mScoreWidget = new Widget(consolePoint, $"{Time.DeltaTime,13:N0}", false);
+        mScoreWidget = new Widget(consolePoint, $"{Time.DeltaTime,13:N0}", false);        
         NewGameObject(mScoreWidget);
 
         consolePoint.x = 0 - 4;
@@ -102,9 +114,12 @@ class GameScene : Scene
 
     public void UpdateScore()
     {
-        int score = (int)(Time.GameTime * 10);
-
+        score = (int)(Time.GameTime * 10);        
         mScoreWidget.UpdateText($"{score,13:N0}");
     }
+
+    
+    
+
 }
 
