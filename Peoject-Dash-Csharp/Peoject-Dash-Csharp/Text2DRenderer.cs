@@ -3,16 +3,18 @@ using System.Diagnostics;
 
 class Text2DRenderer : Renderer
 {
+    
+
     private ConsolePoint mScreenPos;
     private string[] mText2D;
-    private ConsoleColor mColor;
+    private string mColor;
 
     public ConsolePoint ScreenPos
     {
         get =>mScreenPos; 
         set =>mScreenPos = value;
     }
-
+    
     public override void Draw()
     {
         if (IsDrawing == false)
@@ -27,17 +29,23 @@ class Text2DRenderer : Renderer
             return;
         }
 
-        Console.ForegroundColor = mColor;
         for (int i = 0; i < mText2D.Length; i++)
         {
-            Console.SetCursorPosition(mScreenPos.x, mScreenPos.y + i);
-            Console.Write(mText2D[i]);
+
+            RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i]);
+            //if (mColor == RendererManager.RESET)
+            //{
+            //    RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i]);
+            //}
+            //else
+            //{
+            //    RendererManager.InsertTextToStringBuilder(iCol: mScreenPos.x, iRow: mScreenPos.y + i, text: mText2D[i], color: mColor);
+            //}
         }
 
-        Console.ForegroundColor = ConsoleColor.White;
     }
 
-    public Text2DRenderer(ConsolePoint screenPos, string[] text2D, ConsoleColor color = ConsoleColor.White,bool isDrawing = true)
+    public Text2DRenderer(ConsolePoint screenPos, string[] text2D, string color = RendererManager.RESET,bool isDrawing = true)
     {
         mScreenPos = screenPos;
         IsDrawing = isDrawing;

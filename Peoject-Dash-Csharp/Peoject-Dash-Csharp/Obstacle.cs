@@ -51,7 +51,7 @@ class Obstacle: Actor, ICollidable
 
 
 
-    public Obstacle(Vector2D worldLocation, string[] text2D, ConsoleColor color = ConsoleColor.White) : base(worldLocation, text2D, color)
+    public Obstacle(Vector2D worldLocation, string[] text2D, string color = RendererManager.RESET) : base(worldLocation, text2D, color)
     {
         mObstacleSpeed = OBSTACLE_SPEED;
 

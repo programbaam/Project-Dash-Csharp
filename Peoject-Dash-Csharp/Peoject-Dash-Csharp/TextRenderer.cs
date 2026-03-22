@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 class TextRenderer : Renderer
 {  
@@ -17,8 +18,7 @@ class TextRenderer : Renderer
     {
         if (IsDrawing)
         {
-            Console.SetCursorPosition(mScrenPos.x, mScrenPos.y);
-            Console.Write(mText);
+            RendererManager.InsertTextToStringBuilder(iCol: mScrenPos.x, iRow: mScrenPos.y ,text: mText);
         }
     }
 

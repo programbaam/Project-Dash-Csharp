@@ -29,10 +29,9 @@ class Actor : GameObject
     }
     public override void Update()
     {
-        
     }
 
-    public Actor(Vector2D worldLocation, string[] text2D, ConsoleColor color = ConsoleColor.White)
+    public Actor(Vector2D worldLocation, string[] text2D, string color = RendererManager.RESET)
     {
         this.mWorldLocation = worldLocation;
 

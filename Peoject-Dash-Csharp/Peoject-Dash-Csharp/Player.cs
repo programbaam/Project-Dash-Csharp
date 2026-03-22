@@ -54,11 +54,11 @@ class Player : Actor, IInputable, ICollidable
         }
     }
 
-    public Player(Vector2D worldLocation, string[] text2D, float jumpPower,ConsoleColor color = ConsoleColor.White) : base(worldLocation, text2D, color)
+    public Player(Vector2D worldLocation, string[] text2D, float jumpPower,string color = RendererManager.RESET) : base(worldLocation, text2D, color)
     {
         mJumpPower = jumpPower;
         mIsJumping = false;
-        mRigidBody2D = new RigidBody2D(gravity: 1f, topY: 5.0f, groundY: 13.0f);
+        mRigidBody2D = new RigidBody2D(gravity: 9f, topY: 5.0f, groundY: 13.0f);
         NewComponemt(mRigidBody2D);
 
         Rect rect;

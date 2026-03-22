@@ -62,7 +62,7 @@ class GameScene : Scene
         worldLocation.x = 5.0f;
         worldLocation.y = 13.0f;
 
-        mPlayer = new Player(worldLocation: worldLocation,text2D: playerTexts, jumpPower: 3.0f, color: ConsoleColor.Magenta);
+        mPlayer = new Player(worldLocation: worldLocation,text2D: playerTexts, jumpPower: 13.0f, color: RendererManager.RED);
         NewGameObject(mPlayer);
 
         //Obstacle
@@ -76,7 +76,7 @@ class GameScene : Scene
 
         worldLocation.x = 50.0f;
         worldLocation.y = 12.0f;
-        mObstacle = new Obstacle(worldLocation: worldLocation, text2D: obstacleTexts, color: ConsoleColor.Blue);
+        mObstacle = new Obstacle(worldLocation: worldLocation, text2D: obstacleTexts, color: RendererManager.BLUE);
         NewGameObject(mObstacle);
 
 
@@ -93,7 +93,7 @@ class GameScene : Scene
             groundPad,
         };
 
-        mGround = new Actor(worldLocation: worldLocation, text2D: groundTexts, color: ConsoleColor.Green);
+        mGround = new Actor(worldLocation: worldLocation, text2D: groundTexts, color: RendererManager.GREEN);
         NewGameObject(mGround);
 
         consolePoint.x = 0 - 4;
