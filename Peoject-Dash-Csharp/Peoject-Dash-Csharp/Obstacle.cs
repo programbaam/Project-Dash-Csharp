@@ -2,19 +2,19 @@
 using System.Drawing;
 
 class Obstacle: Actor
-{   
-    const float OBSTAC
+{
+    const float OBSTACLE_SPEED = 4.0f;
 
     private float mObstacleSpeed;   
     private bool mGroundEnd=false;
     public override void Update()
     {
-        if (mGroundEnd)
+        if (mGroundEnd)//게임씬???
         {
             base.Release();
             base.Destroy();
-        }
-        
+            //점수 획득???
+        }       
 
         Vector2D curruntPos = WorldLocation;
 
@@ -22,14 +22,11 @@ class Obstacle: Actor
         WorldLocation = curruntPos;
     }
 
-    public void CheckCollision() 
-    {
-        //if()
-    }
+    
 
     public Obstacle(Vector2D worldLocation, string[] text2D, ConsoleColor color = ConsoleColor.White) : base(worldLocation, text2D, color)
     {
-        mObstacleSpeed = 4.0f;
+        mObstacleSpeed = OBSTACLE_SPEED;
     }
 
 
