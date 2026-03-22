@@ -1,13 +1,20 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using static System.Formats.Asn1.AsnWriter;
 
 class GameScene : Scene
 {
+    private const int OBSTACLE_WIDTH = 4;
+
     private readonly Widget mScoreWidget;
     private readonly Player mPlayer;
-    private readonly Obstacle mObstacle;
+    private readonly Obstacle[] mObstacles;
     private readonly Actor mGround; 
+
     private int mScore;
+    private int mObstaclesIdx;
+    private int mObstacleDeltaTime;
+    private int mObstacleDelayTime;
 
     public override void Update()
     {
@@ -19,23 +26,35 @@ class GameScene : Scene
         
         if (mPlayer.LifeCounter == 0)
         {
-            
             ScoreScene.sScore = mScore-1;
             SaveScore(mScore -1); //사용자가 보는 마지막 점수와 (0.16) DeltaTime 차이(1점차이)
             
             GameManager.mSyncSet.isChangeScene = true;
             GameManager.mSyncSet.scene = EScene.GameOver;
         }
+        
+        Vector2D worldLocation = mObstacles[mObstaclesIdx].WorldLocation;
+
+        mObstacleDeltaTime += (int)(Time.DeltaTime * 10);
+        //랜덤 딜레이
+        if (worldLocation.x <= 0 && mObstacleDeltaTime >= mObstacleDelayTime)
+        { 
+            worldLocation.x = GameManager.ConsoleWidth - OBSTACLE_WIDTH;
+            mObstacles[mObstaclesIdx].WorldLocation = worldLocation;
+            mObstaclesIdx = (mObstaclesIdx + 1) % mObstacles.Length;
+            mObstacleDeltaTime = 0;
+            RandomDelayTime();
+        }
     }
 
     public GameScene()
     {
-        mScore = 0;
-        Time.GameTime =0;
+        Time.GameTime = 0;
+        mObstacleDeltaTime = 0;
+        mObstacleDelayTime = new Random().Next(3, 20);
 
         ConsolePoint consolePoint;
         Vector2D worldLocation;
-        
 
         //Widget 사용시 LOCAL_CONTENTS_POS_X 값만큼 빼줘야 함
         consolePoint.x = 70 - 4;
@@ -72,6 +91,7 @@ class GameScene : Scene
         NewGameObject(mPlayer);
 
         //Obstacle
+        mObstacles = new Obstacle[3];
         string[] obstacleTexts =
         {
             "****",
@@ -80,11 +100,15 @@ class GameScene : Scene
             " ** ",
         };
 
-        worldLocation.x = 50.0f;
+        worldLocation.x = 30.0f;
         worldLocation.y = 12.0f;
-        mObstacle = new Obstacle(worldLocation: worldLocation, text2D: obstacleTexts, color: RendererManager.BLUE);
-        NewGameObject(mObstacle);
 
+        for (int i = 0; i < mObstacles.Length; ++i)
+        {
+            worldLocation.x += 15 * i ;
+            mObstacles[i] = new Obstacle(worldLocation: worldLocation, text2D: obstacleTexts, color: RendererManager.BLUE);
+            NewGameObject(mObstacles[i]);
+        }
 
         worldLocation.x = 0.0f;
         worldLocation.y = 16.0f;
@@ -130,5 +154,16 @@ class GameScene : Scene
         string userScore = $"{score}\n";
         File.AppendAllText("resource/UserScores.csv", userScore);
     }
-}
 
+    public void RandomDelayTime()
+    {
+        if (mObstaclesIdx == 0)
+        {
+            mObstacleDelayTime = new Random().Next(3, 20);
+        }
+        else
+        {
+            mObstacleDelayTime += new Random().Next(0, 10);
+        }
+    }
+}
