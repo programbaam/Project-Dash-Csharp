@@ -4,7 +4,7 @@ using System.Runtime.InteropServices.JavaScript;
 
 class CollisionManager
 {
-    private List<(Collider collider, ICollidable owner)> mCollisionList = new();
+    private List<(Collider collider, ICollidable? owner)> mCollisionList = new();
 
     private static bool[,] sLayerTable =
     {
@@ -19,8 +19,8 @@ class CollisionManager
     }
 
     public void UnionWithNewCollision()
-    {
-        foreach((Collider collider, ICollidable owner) collision in GameManager.mSyncSet.newCollision)
+     {
+        foreach((Collider collider, ICollidable? owner) collision in GameManager.mSyncSet.newCollision)
         {
             if (mCollisionList.Contains(collision))
             {
@@ -33,7 +33,7 @@ class CollisionManager
 
     public void ExceptWithDeleteCollision()
     {
-        foreach ((Collider collider, ICollidable owner) collision in GameManager.mSyncSet.newCollision)
+        foreach ((Collider collider, ICollidable? owner) collision in GameManager.mSyncSet.deleteCollision)
         {
             if (mCollisionList.Contains(collision))
             {
@@ -44,6 +44,10 @@ class CollisionManager
 
     public void Collision()
     {
+        if (mCollisionList.Count == 0)
+        {
+            return;
+        }
         
         for (int i = 0; i < mCollisionList.Count; i++)
         {
@@ -53,7 +57,10 @@ class CollisionManager
                 if (mCollisionList[i].collider.IsOverlap(
                         mCollisionList[j].collider))
                 {
-                    mCollisionList[i].owner.OnCollision();
+                    if (mCollisionList[i].owner != null)
+                    {
+                        mCollisionList[i].owner.OnCollision();
+                    }
                 }
             }
         }
